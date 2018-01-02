@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bookmarks</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <style>
+        .search {
+            margin: 10px 0 10px 0;
+        }
+    </style>
+</head>
+
+<body ng-app="bookmarks">
+    <script>
+        var app = angular.module('bookmarks', []);
+
+        app.controller('ItemsController', function ($scope) {
+
+            $scope.query = '';
+
+            $scope.groups = [{
+                    groupName: 'group',
+                    links: [{
+                            name: 'Calendar',
+                            url: 'https://calendar.google.com'
+                        },
+                        {
+                            name: 'one',
+                            url: 'http://yahoo.com'
+                        },
+                        {
+                            name: 'blah',
+                            url: 'blah'
+                        }
+                    ]
+                },
+                {
+                    groupName: 'group two',
+                    links: [{
+                            name: 'Calendar',
+                            url: 'https://calendar.google.com'
+                        },
+                        {
+                            name: 'one',
+                            url: 'http://yahoo.com'
+                        },
+                        {
+                            name: 'blah',
+                            url: 'blah'
+                        }
+                    ]
+                }
+
+            ];
+        });
+    </script>
+
+    <div ng-controller="ItemsController" class="container">
+        <input class='search' ng-model="query" placeholder='Search' autofocus/>
+
+        <div class="row">
+            <div ng-repeat="group in groups">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{group.groupName}}</div>
+                        <table class="table table-condensed table-hover">
+                            <tr ng-repeat="link in group.links | filter:{name:query}">
+                                <td>
+                                    <a ng-href="{{link.url}}">{{link.name}}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
